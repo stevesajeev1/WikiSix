@@ -2,18 +2,12 @@
 # Each algorithm should accept a graph object, start node and end node.
 # It should return the number of nodes explored and ALL the shortest paths.
 
-# Imports
 from graph import Graph
 import heapq
 
 
-# Algorithm Functions
-# Should take in src, to
-# Should output number of nodes explored and shortest path
-
 # Dijkstra Algorithm - not working rn
-def dijkstra(graph:Graph, src, to):
-
+def dijkstra(graph: Graph, src, to):
     # get the number of nodes in the graph
     n = graph.get_num_nodes()
 
@@ -50,10 +44,10 @@ def dijkstra(graph:Graph, src, to):
 
 
 # breadth first search
-def bfs (graph:Graph, src, to):
+def bfs(graph: Graph, src, to):
     pass
 
 
 # depth first search
-def dfs (graph:Graph, src, to):
+def dfs(graph: Graph, src, to):
     pass
