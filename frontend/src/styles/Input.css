@@ -4,6 +4,7 @@
   align-items: center;
   text-align: center;
   gap: 10px;
+  min-height: 90vh; /* add seperation b/w input and general stats */
 }
 
 #inputs {
@@ -19,4 +20,42 @@
   text-align: center;
   outline: none;
   font: inherit;
+}
+
+#find-connection-btn {
+  height: 50px;
+  width: 200px;
+  background-color: rgb(222, 83, 83);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 25px;
+  cursor:pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 25px;
+}
+
+#find-connection-btn:hover {
+  background-color: red;
+}
+
+#general-stats {
+  margin-top: auto;
+  text-align: center;
+  width: 60%;
+  background-color: #9bdfff;
+  border: 2px solid #ddd; 
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 8px 5px 3px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+#general-stats h3 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+#general-stats p {
+  text-align: center;
+  font-size: 25px;
+  margin-top: 5px;
 }
