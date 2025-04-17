@@ -6,7 +6,7 @@ import Header from './Header';
 import Input from './Input';
 import Graph from './Graph';
 import Paths from './Paths';
-import UserPaths from './UserPaths';
+import UserPath from './UserPath';
 
 export default function App() {
   const [start, setStart] = useState("");
@@ -31,15 +31,13 @@ export default function App() {
     if (!response.ok) {
       setResult(null);
       const text = await response.text();
+      setStart("");
+      setEnd("");
       alert(text);
     } else {
       const json = await response.json() as Result;
       setResult(json);
     }
-
-    // Clear inputs
-    setStart("");
-    setEnd("");
   }
 
   return (
@@ -56,7 +54,9 @@ export default function App() {
       <>
         <Graph result={result} />
         <Paths paths={result.paths} />
-        <UserPaths user={result.user} />
+        {result.user !== null &&
+        <UserPath user={result.user} />
+        }
       </>
       }
     </>

@@ -6,7 +6,7 @@ interface PathProps {
 
 export default function Path({ path }: PathProps) {
   return (
-    <div id="path-parts">
+    <div className="path-parts">
       {path.map((part, i) => 
         <div
           key={i}

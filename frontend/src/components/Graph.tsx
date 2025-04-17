@@ -18,7 +18,8 @@ export default function Graph({ result }: GraphProps) {
         let color = `hsl(${degrees}, 80%, 65%)`;
         nodes.push({ id: path[i], label: path[i], fill: color });
       }      
-      if (i < path.length - 1){
+      if (i < path.length - 1) {
+        if (!edges.some((edge) => edge.id === `${path[i]}->${path[i + 1]}`))
         edges.push({ // adding the edges b/w consecutive nodes in the list
           id: `${path[i]}->${path[i + 1]}`,
           source: path[i],

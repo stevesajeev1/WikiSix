@@ -58,11 +58,11 @@ def calculate():
             "time": time_bfs,
             "edges_explored": ee_bfs
         },
-        "user": {
+        "user": None if shortest_user_path is None else {
             "average_length": avg_user_path_len,
             "average_duration": avg_user_duration,
             "shortest_path": shortest_user_path,
-            "shortest_degree": 0 if (shortest_user_path is None) else len(shortest_user_path)
+            "shortest_degree": len(shortest_user_path)
         }
     }
 
