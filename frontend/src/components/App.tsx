@@ -1,5 +1,7 @@
 import "../styles/App.css";
 
+import { useState } from 'react';
+
 import Header from './Header';
 import Input from './Input';
 import Graph from './Graph';
@@ -7,10 +9,46 @@ import Paths from './Paths';
 import UserPaths from './UserPaths';
 
 export default function App() {
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+
+  const calculate = async () => {
+    const payload = {
+      "start": start.trim(),
+      "end": end.trim()
+    }
+
+    const response = await fetch('/calculate', {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      alert(text);
+    } else {
+      const json = await response.json();
+      console.log(json);
+    }
+
+    // Clear inputs
+    setStart("");
+    setEnd("");
+  }
+
   return (
     <>
       <Header />
-      <Input />
+      <Input
+        start={start}
+        setStart={setStart}
+        end={end}
+        setEnd={setEnd}
+        calculate={calculate}
+      />
       <Graph />
       <div id="paths">
         <Paths />
