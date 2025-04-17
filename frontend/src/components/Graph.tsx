@@ -14,7 +14,9 @@ export default function Graph({ result }: GraphProps) {
   result.paths.forEach((path) => {
     for (let i = 0; i < path.length; i++){
       if (!nodes.some((node) => node.id === path[i])) {
-        nodes.push({ id: path[i], label: path[i] });
+        let degrees = i * (360 / path.length);
+        let color = `hsl(${degrees}, 80%, 65%)`;
+        nodes.push({ id: path[i], label: path[i], fill: color });
       }      
       if (i < path.length - 1){
         edges.push({ // adding the edges b/w consecutive nodes in the list
