@@ -19,8 +19,8 @@ def hello_world():
 # TODO: Should this be parallelized?
 @app.route("/calculate", methods=['POST'])
 def calculate():
-    # if request.json is None or 'start' not in request.json or 'end' not in request.json:
-    #     return 'Please supply a start and end node', 400
+    if request.json is None or 'start' not in request.json or 'end' not in request.json:
+        return 'Please supply a start and end node', 400
     
     # get nodes from request
     start = (request.json['start']).lower()
