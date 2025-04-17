@@ -1,12 +1,26 @@
 #footer {
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background-color: #4A6C6F;
   color: white;
   padding: 10px;
 }
 
-#footer span {
+#footer-credits {
   font-size: 20px;
+}
+
+#footer-info {
+  font-size: 15px;
+  align-items: center;
+}
+
+#footer-info a, a:visited {
+  color: white;
+}
+
+#footer-info a:hover, a:visited:hover {
+  color: blue;
 }
