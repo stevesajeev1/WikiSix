@@ -3,6 +3,7 @@ from flask_cors import CORS
 from graph import Graph
 import algorithms
 import time
+import user_route
 
 app = Flask(__name__)
 CORS(app)
@@ -38,6 +39,9 @@ def calculate():
     # Check if paths are equal
     # if (dg_bfs != dg_dfs != dg_djk) or (len(paths_bfs) != len(paths_dfs) != len(paths_djk)):
             # return "Error, paths returned not equal", 500
+    
+    # finding user routes
+    avg_user_path_len, avg_user_duration, shortest_user_path = user_route.get_user_route(start, end)
 
     result = {
         "shortest_degree": int(dg_djk),
@@ -54,6 +58,12 @@ def calculate():
         #     "time": time_bfs,
         #     "edges_explored": ee_bfs
         # }
+        "user": {
+            "average_length": avg_user_path_len,
+            "average_duration": avg_user_duration,
+            "shortest_path": shortest_user_path,
+            "shortest_degree": 0 if (shortest_user_path is None) else len(shortest_user_path)
+        }
     }
 
     # Return the times, edges explored (for each), and a single paths (list of lists)

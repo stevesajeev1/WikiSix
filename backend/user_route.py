@@ -54,4 +54,4 @@ def get_user_route(src, to):
     avg_duration = total_duration / valid_paths
     return avg_path_length, avg_duration, shortest_user_path
 
-print(get_user_route("14th_century", "rainbow"))
+# print(get_user_route("14th_century", "rainbow"))
