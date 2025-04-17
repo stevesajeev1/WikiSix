@@ -9,6 +9,7 @@ export default function Input() {
         <span>to</span>
         <input />
       </div>
+      <div id="input-button">Go!</div>
     </div>
   );
 }

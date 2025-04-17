@@ -1,12 +1,14 @@
 #input-container {
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 #inputs {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -14,9 +16,29 @@
 
 #inputs input {
   height: 60px;
-  width: 450px;
-  border: 2px solid black;
+  width: 100%;
+  border: 3px solid black;
   text-align: center;
   outline: none;
   font: inherit;
+}
+
+#input-button {
+  height: 70px;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: rgb(255, 107, 107);
+  color: white;
+  font-weight: bold;
+  transition: background-color 200ms, color 200ms;
+}
+
+#input-button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: rgb(255, 107, 107);
 }
