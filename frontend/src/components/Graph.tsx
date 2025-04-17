@@ -30,16 +30,20 @@ export default function Graph() {
       <div id="stats">
         <h3>Statistics</h3>
         <table>
-          <tr>
-            <th>Algorithm</th>
-            <th>Nodes Explored</th>
-            <th>Time</th>
-          </tr>
-          <tr>
-            <td>Dijkstra</td>
-            <td>1000</td>
-            <td>1.4s</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Nodes Explored</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dijkstra</td>
+              <td>1000</td>
+              <td>1.4s</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <span id="graph-description">Found 119 paths with 3 degrees of separation from Google to Krakatoa in 3.38 seconds!</span>

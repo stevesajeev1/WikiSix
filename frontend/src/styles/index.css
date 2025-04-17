@@ -19,4 +19,5 @@ html, body, #root {
   background-color: #68CEFF;
   font-family: 'Quicksand', sans-serif;
   font-size: 30px;
+  overflow-y: scroll;
 }
