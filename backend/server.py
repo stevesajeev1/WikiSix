@@ -19,8 +19,8 @@ def calculate():
         return 'Please supply a start and end node', 400
     
     # get nodes from request
-    start = (request.json['start']).lower()
-    end = (request.json['end']).lower()
+    start = (request.json['start']).lower().replace(' ', '_')
+    end = (request.json['end']).lower().replace(' ', '_')
 
     # make sure start and end nodes in graph
     if not graph.hasNode(start): return "Start node not in graph", 400
@@ -34,7 +34,7 @@ def calculate():
     
     time_djk, ee_djk, dg_djk, paths_djk = time_function(algorithms.dijkstra, start, end)
     # time_dfs, ee_dfs, dg_dfs, paths_dfs = time_function(algorithms.dfs, start, end)
-    # time_bfs, ee_bfs, dg_bfs, paths_bfs  = time_function(algorithms.bfs, start, end)
+    time_bfs, ee_bfs, dg_bfs, paths_bfs  = time_function(algorithms.bfs, start, end)
     
     # Check if paths are equal
     # if (dg_bfs != dg_dfs != dg_djk) or (len(paths_bfs) != len(paths_dfs) != len(paths_djk)):
@@ -54,10 +54,10 @@ def calculate():
         #     "time": time_dfs,
         #     "edges_explored": ee_dfs
         # },
-        # "bfs": {
-        #     "time": time_bfs,
-        #     "edges_explored": ee_bfs
-        # }
+        "bfs": {
+            "time": time_bfs,
+            "edges_explored": ee_bfs
+        },
         "user": {
             "average_length": avg_user_path_len,
             "average_duration": avg_user_duration,
