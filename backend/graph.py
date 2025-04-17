@@ -62,3 +62,7 @@ class Graph:
     #-- Gets the full adjacency list
     def get_adjList(self):
         return self._adjList
+    
+    #-- Returns if node in graph
+    def hasNode(self, node):
+        return node in self._adjList
