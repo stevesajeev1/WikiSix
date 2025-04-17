@@ -2,6 +2,7 @@
 # Each algorithm should accept a graph object, start node and end node.
 
 from collections import defaultdict
+from collections import deque
 from graph import Graph
 import heapq
 
@@ -74,7 +75,50 @@ def dijkstra(graph: Graph, src, to):
 
 # breadth first search
 def bfs(graph: Graph, src, to):
-    pass
+    # to keep track of nodes visited
+    visited = set()
+    # storing parent nodes
+    parents = defaultdict(list)
+    # BFS queue intialized
+    queue = deque([src])
+    distance = {src: 0}
+    paths = []
+
+    while queue:
+        # FIFO
+        node = queue.popleft()
+
+        # checking all neighbors
+        for neighbor in graph.get_neighbors(node):
+            # if neighbor not visited then
+            if neighbor not in distance:
+                # set distance from src
+                distance[neighbor] = distance[node] + 1
+                # setting current node as parent
+                parents[neighbor].append(node)
+                queue.append(neighbor)
+            elif distance[neighbor] == distance[node] + 1:
+                # found another shortest path to neighbor
+                parents[neighbor].append(node)
+
+    # if not reachable
+    if not distance:
+        return len(distance), None, []
+
+    # backtrack to build path all from to to src
+    def backtrack(curr, path):
+        if curr == src:
+            # add completed path to list when source is reached
+            paths.append([src] + path[::-1])
+            return
+        for p in parents[curr]:
+            backtrack(p, path + [curr])
+
+    # backtracking from destination node
+    backtrack(to, [])
+
+    return len(distance), distance[to], paths
+    
 
 
 # depth first search
@@ -83,5 +127,6 @@ def dfs(graph: Graph, src, to):
 
 
 # Testing Code, example using Dijkstra
-# graph = Graph("backend/data/paths.tsv")
-# print(dijkstra(graph, "Florida", "Formula_One"))
+graph = Graph("backend/data/paths.tsv")
+print(dijkstra(graph, "Florida", "Formula_One"))
+print(bfs(graph, "Florida", "Formula_One"))
