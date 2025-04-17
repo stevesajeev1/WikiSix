@@ -1,35 +1,42 @@
 import "../styles/Graph.css";
 
 import type { Result } from '../types';
-import { GraphCanvas } from 'reagraph';
+import { GraphCanvas, GraphNode, GraphEdge } from 'reagraph';
 
 interface GraphProps {
   result: Result;
 }
 
 export default function Graph({ result }: GraphProps) {
+  const nodes: GraphNode[] = [];
+  const edges: GraphEdge[] = [];
+
+  result.paths.forEach((path) => {
+    for (let i = 0; i < path.length; i++){
+      if (!nodes.some((node) => node.id === path[i])) {
+        nodes.push({ id: path[i], label: path[i] });
+      }      
+      if (i < path.length - 1){
+        edges.push({ // adding the edges b/w consecutive nodes in the list
+          id: `${path[i]}->${path[i + 1]}`,
+          source: path[i],
+          target: path[i + 1],
+          label: `${path[i]} -> ${path[i + 1]}`,
+        });
+      }
+    }
+  })
+
   return (
     <div id="graph-container">
       <div id="canvas-container">
-        <GraphCanvas
-          nodes={[
-            {
-              id: 'n-1',
-              label: '1'
-            },
-            {
-              id: 'n-2',
-              label: '2'
-            }
-          ]}
-          edges={[
-            {
-              id: '1->2',
-              source: 'n-1',
-              target: 'n-2',
-              label: 'Edge 1-2'
-            }
-          ]}
+      <GraphCanvas
+          nodes = {nodes}
+          edges= {edges}
+          layoutType="treeLr2d" 
+          animated={true} 
+          edgeArrowPosition="end" 
+          draggable={true}
         />
       </div>
       <div id="stats">
