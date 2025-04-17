@@ -1,5 +1,6 @@
 # Class for adjacency list representation of data
 import csv
+from urllib.parse import unquote
 
 
 class Graph:
@@ -16,7 +17,7 @@ class Graph:
         nodes = set()
         
         # open file
-        with open(filename) as file:
+        with open(filename, 'r') as file:
             reader = csv.reader(file, delimiter="\t")
             for row in reader:
                 # skip comments at top of file
@@ -24,6 +25,9 @@ class Graph:
                 
                 # get nodes
                 nFrom, nTo = row
+                nFrom = unquote(nFrom).lower()
+                nTo = unquote(nTo).lower()
+                
                 nodes.add(nFrom)
                 nodes.add(nTo)
                 
@@ -62,3 +66,7 @@ class Graph:
     #-- Gets the full adjacency list
     def get_adjList(self):
         return self._adjList
+    
+    #-- Returns if node in graph
+    def hasNode(self, node):
+        return node in self._adjList

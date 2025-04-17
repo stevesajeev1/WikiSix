@@ -7,7 +7,7 @@ from graph import Graph
 import heapq
 
 # Should return:
-# - Number of nodes explored (visited list length)
+# - Number of edges explored (visited list length)
 # - Length/Degrees of the shortest path (optional, can just get from len(path))
 # - A path array that includes all the shortest paths in a list of lists
 #   * Example [["Florida", "x", "Wikipedia"], ["Florida", "y", "Wikipedia"]]
@@ -127,6 +127,6 @@ def dfs(graph: Graph, src, to):
 
 
 # Testing Code, example using Dijkstra
-graph = Graph("backend/data/paths.tsv")
-print(dijkstra(graph, "Florida", "Formula_One"))
-print(bfs(graph, "Florida", "Formula_One"))
+# graph = Graph("backend/data/paths.tsv")
+# print(dijkstra(graph, "florida", "formula_one"))
+# print(bfs(graph, "Florida", "Formula_One"))
