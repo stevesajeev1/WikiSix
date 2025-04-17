@@ -33,8 +33,8 @@ export default function Graph() {
           <thead>
             <tr>
               <th>Algorithm</th>
-              <th>Nodes Explored</th>
-              <th>Time</th>
+              <th>Edges Explored</th>
+              <th>Time Taken</th>
             </tr>
           </thead>
           <tbody>
