@@ -41,7 +41,7 @@ def calculate():
     time_bfs, ne_bfs, dg_bfs, paths_bfs  = time_function(algorithms.bfs, graph, start, end)
     
     # Check if paths are equal
-    if (dg_bfs != dg_dfs != dg_djk) and (len(paths_bfs) == len(paths_dfs) == len(paths_djk)):
+    if (dg_bfs != dg_dfs != dg_djk) or (len(paths_bfs) != len(paths_dfs) != len(paths_djk)):
             return "Error, paths returned not equal", 500
 
     result = {
