@@ -11,10 +11,6 @@ CORS(app)
 # We do not want to create a new graph on each request.
 graph = Graph("./data/paths.tsv")
 
-@app.route("/")
-def hello_world():
-    return "Hello, world!"
-
 # We will have a route that will call all algorithms
 @app.route("/calculate", methods=['POST'])
 def calculate():
@@ -31,33 +27,33 @@ def calculate():
 
     # Run the algorithms and record time taken where:
         # time_alg - time taken
-        # ne_alg - number of edges explored
+        # ee_alg - number of edges explored
         # dg_alg - lowest degree of seperation
         # paths_alg - paths returned
     
-    time_djk, ne_djk, dg_djk, paths_djk = time_function(algorithms.dijkstra, start, end)
-    time_dfs, ne_dfs, dg_dfs, paths_dfs = time_function(algorithms.dfs, start, end)
-    time_bfs, ne_bfs, dg_bfs, paths_bfs  = time_function(algorithms.bfs, start, end)
+    time_djk, ee_djk, dg_djk, paths_djk = time_function(algorithms.dijkstra, start, end)
+    # time_dfs, ee_dfs, dg_dfs, paths_dfs = time_function(algorithms.dfs, start, end)
+    # time_bfs, ee_bfs, dg_bfs, paths_bfs  = time_function(algorithms.bfs, start, end)
     
     # Check if paths are equal
-    if (dg_bfs != dg_dfs != dg_djk) or (len(paths_bfs) != len(paths_dfs) != len(paths_djk)):
-            return "Error, paths returned not equal", 500
+    # if (dg_bfs != dg_dfs != dg_djk) or (len(paths_bfs) != len(paths_dfs) != len(paths_djk)):
+            # return "Error, paths returned not equal", 500
 
     result = {
         "shortest_degree": int(dg_djk),
         "paths": paths_djk,
         "dijkstra": {
             "time": time_djk,
-            "edges_explored": ne_djk
+            "edges_explored": ee_djk
         },
-        "dfs": {
-            "time": time_dfs,
-            "edges_explored": ne_dfs
-        },
-        "bfs": {
-            "time": time_bfs,
-            "edges_explored": ne_bfs
-        }
+        # "dfs": {
+        #     "time": time_dfs,
+        #     "edges_explored": ee_dfs
+        # },
+        # "bfs": {
+        #     "time": time_bfs,
+        #     "edges_explored": ee_bfs
+        # }
     }
 
     # Return the times, edges explored (for each), and a single paths (list of lists)
@@ -68,7 +64,7 @@ def calculate():
 def time_function(function, start, end):
     # consider creating a thread as well
     st = time.perf_counter()
-    ne, dg, paths = function(graph, start, end)
+    ee, dg, paths = function(graph, start, end)
     et = time.perf_counter()
     time_taken = et - st
-    return time_taken, ne, dg, paths
+    return time_taken, ee, dg, paths
