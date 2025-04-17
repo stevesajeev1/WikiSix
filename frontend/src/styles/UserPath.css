@@ -13,6 +13,11 @@
   font-weight: bold;
 }
 
+#no-user-routes {
+  grid-column: span 2;
+  text-align: center;
+}
+
 #user-stats {
   display: flex;
   flex-direction: column;

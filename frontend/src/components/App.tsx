@@ -7,6 +7,7 @@ import Input from './Input';
 import Graph from './Graph';
 import Paths from './Paths';
 import UserPath from './UserPath';
+import Footer from './Footer';
 
 export default function App() {
   const [start, setStart] = useState("");
@@ -43,22 +44,23 @@ export default function App() {
   return (
     <>
       <Header />
-      <Input
-        start={start}
-        setStart={setStart}
-        end={end}
-        setEnd={setEnd}
-        calculate={calculate}
-      />
-      {result !== null &&
-      <>
-        <Graph result={result} />
-        <Paths paths={result.paths} />
-        {result.user !== null &&
-        <UserPath user={result.user} />
+      <div id="content">
+        <Input
+          start={start}
+          setStart={setStart}
+          end={end}
+          setEnd={setEnd}
+          calculate={calculate}
+        />
+        {result !== null &&
+        <>
+          <Graph result={result} />
+          <Paths paths={result.paths} />
+          <UserPath user={result.user} />
+        </>
         }
-      </>
-      }
+      </div>
+      <Footer />
     </>
   )
 }
