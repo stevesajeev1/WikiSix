@@ -47,15 +47,15 @@ def calculate():
         "shortest_degree": int(dg_djk),
         "paths": paths_djk,
         "dijkstra": {
-            "time": time_djk,
+            "time": round(time_djk,4),
             "edges_explored": ee_djk
         },
         # "dfs": {
-        #     "time": time_dfs,
+        #     "time": round(time_dfs,4),
         #     "edges_explored": ee_dfs
         # },
         "bfs": {
-            "time": time_bfs,
+            "time": round(time_bfs,4),
             "edges_explored": ee_bfs
         },
         "user": None if shortest_user_path is None else {
