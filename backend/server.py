@@ -23,8 +23,8 @@ def calculate():
     #     return 'Please supply a start and end node', 400
     
     # get nodes from request
-    start = request.json['start']
-    end = request.json['end']
+    start = (request.json['start']).lower()
+    end = (request.json['end']).lower()
 
     # make sure start and end nodes in graph
     if not graph.hasNode(start): return "Start node not in graph"
