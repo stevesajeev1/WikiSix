@@ -1,5 +1,3 @@
-import "../styles/App.css";
-
 import { useState } from 'react';
 
 import type { Result } from '../types';
@@ -57,10 +55,8 @@ export default function App() {
       {result !== null &&
       <>
         <Graph result={result} />
-        <div id="paths">
-          <Paths />
-          <UserPaths />
-        </div>
+        <Paths paths={result.paths} />
+        <UserPaths user={result.user} />
       </>
       }
     </>

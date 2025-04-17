@@ -1,9 +1,0 @@
-#paths {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-#paths span {
-  text-align: center;
-}

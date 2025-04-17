@@ -60,11 +60,12 @@ export default function Graph({ result }: GraphProps) {
               <td>{result.dfs.edges_explored}</td>
               <td>{result.dfs.time}</td>
             </tr>
+            */}
             <tr>
               <td>BFS</td>
               <td>{result.bfs.edges_explored}</td>
               <td>{result.bfs.time}</td>
-            </tr> */}
+            </tr>
           </tbody>
         </table>
       </div>
