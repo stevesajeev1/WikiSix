@@ -23,8 +23,8 @@ def calculate():
     #     return 'Please supply a start and end node', 400
     
     # get nodes from request
-    start = request.json['start']
-    end = request.json['end']
+    start = (request.json['start']).lower()
+    end = (request.json['end']).lower()
 
     # make sure start and end nodes in graph
     if not graph.hasNode(start): return "Start node not in graph"
@@ -41,15 +41,28 @@ def calculate():
     time_bfs, ne_bfs, dg_bfs, paths_bfs  = time_function(algorithms.bfs, graph, start, end)
     
     # Check if paths are equal
-    if(paths_djk != paths_bfs != paths_dfs) & (dg_bfs != dg_dfs != dg_djk):
-            return "Error, paths returned not equal"
+    if (dg_bfs != dg_dfs != dg_djk) or (len(paths_bfs) != len(paths_dfs) != len(paths_djk)):
+            return "Error, paths returned not equal", 500
 
-    djk = (ne_djk, time_djk)
-    dfs = (ne_dfs, time_dfs)
-    bfs = (ne_bfs, time_bfs)
+    result = {
+        "shortest_degree": int(dg_djk),
+        "paths": paths_djk,
+        "dijkstra": {
+            "time": time_djk,
+            "edges_explored": ne_djk
+        },
+        "dfs": {
+            "time": time_dfs,
+            "edges_explored": ne_dfs
+        },
+        "bfs": {
+            "time": time_bfs,
+            "edges_explored": ne_bfs
+        }
+    }
 
     # Return the times, edges explored (for each), and a single paths (list of lists)
-    return djk, dfs, bfs, paths_djk
+    return jsonify(result)
 
 
 # Function to time each algorithm
