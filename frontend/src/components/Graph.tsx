@@ -33,13 +33,11 @@ export default function Graph({ result }: GraphProps) {
 
   // fullscreen function, on user clicking canvas
   const fullscreenToggle = () => {
-    const graphContainer = document.getElementById("graph-container");
-    if (graphContainer) {
-      if (!document.fullscreenElement) {
-        graphContainer.requestFullscreen()
-      } else {
-        document.exitFullscreen();
-      }
+    const graphContainer = document.getElementById("graph-container")!;
+    if (!document.fullscreenElement) {
+      graphContainer.requestFullscreen();
+    } else {
+      document.exitFullscreen();
     }
   };
 
