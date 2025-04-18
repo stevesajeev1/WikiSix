@@ -28,7 +28,7 @@ export default function Input({ start, setStart, end, setEnd, calculate }: Input
           onInput={handleStartInput}
           placeholder="from"
         />
-        <span id="arrow">&#x2192;</span>
+        <span id="arrow">&rarr;</span>
         <input 
           value={end}
           onInput={handleEndInput} 
