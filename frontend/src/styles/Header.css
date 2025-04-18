@@ -3,6 +3,8 @@
 #header {
   font-family: 'Crimson Text', serif;
   font-size: 70px;
+  color: white;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.459); 
 }
 
 #header span {

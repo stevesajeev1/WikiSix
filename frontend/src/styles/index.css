@@ -16,8 +16,21 @@ html, body, #root {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #68CEFF;
   font-family: 'Quicksand', sans-serif;
   font-size: 30px;
   overflow-y: scroll;
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at 80% 80%,               /* bottom‑right */
+      rgba(126, 56, 239, 0.2) 0%,     /* lighter purple center */
+      rgba(123,  62, 221, 0)   70%     /* fade out sooner */
+    ),
+    linear-gradient(
+      135deg,
+      #101237 0%,    
+      #1a2048 60%,   
+      #663388 100%
+    );
 }
