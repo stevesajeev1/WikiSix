@@ -7,119 +7,118 @@ from graph import Graph
 import heapq
 
 # Should return:
-# - Number of edges explored (visited list length)
-# - Length/Degrees of the shortest path (optional, can just get from len(path))
+# - Number of edges explored
+# - Length/Degrees of the shortest path
 # - A path array that includes all the shortest paths in a list of lists
-#   * Example [["Florida", "x", "Wikipedia"], ["Florida", "y", "Wikipedia"]]
-#   * The shortest paths are Florida -> x -> Wikipedia and Florida -> y -> Wikipedia
+#   * Example [["florida", "x", "wikipedia"], ["florida", "y", "wikipedia"]]
+#   * The shortest paths are florida -> x -> wikipedia and florida -> y -> wikipedia
 
 
 # Dijkstra Algorithm - Sriram
 def dijkstra(graph: Graph, src, to):
-    # get the number of nodes in the graph and initalize variables
-    n = graph.get_num_nodes()
+    # initialize variables
     INF = float('inf')
-    dist = {node: INF for node in range(n)}    
+    dist = defaultdict(lambda: INF)    
     dist[src] = 0
-    prev = defaultdict(list) # prev also holds paths
+    prev = defaultdict(list) # prev holds paths
 
     # priority queue to hold (node, distance)
     pq = [(0, src)]
 
     # process until empty
+    edges_explored = 0
     while pq:
         distance, node = heapq.heappop(pq)
-
         if distance > dist[node]:
             continue
         
+        # Break early once we reach the end node
+        if node == to:
+            break
+        
         # relax all of node's edges
         for v in graph.get_neighbors(node):
+            edges_explored += 1
             
             weight = 1 # unweighted so all edges w=1
             
             # node allows a smaller weight
-            if dist.get(v, INF) > distance + weight:
-                # replace the weight, append to pq, add to visited
+            if dist[v] > distance + weight:
+                # replace the weight, append to pq
                 dist[v] = distance + weight
                 prev[v] = [node]
                 heapq.heappush(pq, (dist[v], v))
-            
-            elif distance+weight == dist[v]:
+            elif dist[v] == distance + weight:
                 prev[v].append(node) 
 
-    # calculate the amount of nodes visited and the least distance
-    visited = 0
-    for d in dist.values():
-        if d < INF: visited += d
-    
-    least_dist = dist[to] if dist.get(to, INF) < INF else None
+    least_dist = dist[to] if dist[to] < INF else None
+    if least_dist is None:
+        return edges_explored, None, []
 
     # now backtrack all the nodes for all shortest paths
     paths = []
-    if (least_dist is not None):
-        # stack with (node, path)
-        stack = [(to, [])]
-        while stack:
-            node, path = stack.pop()
-            if node == src:
-                # reached end
-                paths.append([src] + path)
-            else:
-                # add all previous
-                for u in prev[node]:
-                    stack.append((u, [node] + path))
+    # stack with (node, path)
+    stack = [(to, [])]
+    while stack:
+        node, path = stack.pop()
+        if node == src:
+            # reached end
+            paths.append([src] + path)
+        else:
+            # add all previous
+            for u in prev[node]:
+                stack.append((u, [node] + path))
 
-    return visited, least_dist, paths
+    return edges_explored, least_dist, paths
 
 
 # breadth first search
 def bfs(graph: Graph, src, to):
+    if to == src:
+        return 0, 0, [[src]]
+
     # to keep track of nodes visited
     visited = set()
-    # storing parent nodes
-    parents = defaultdict(list)
-    # BFS queue intialized
-    queue = deque([src])
-    distance = {src: 0}
+    
+    # BFS queue intialized (node, path)
+    queue = deque()
+    queue.append((src, [src]))
     paths = []
 
+    distance = 0
+    edges_explored = 0
+    to_visited = False
     while queue:
-        # FIFO
-        node = queue.popleft()
+        size = len(queue)
+        
+        for _ in range(size):
+            # FIFO
+            node, path = queue.popleft()
+            visited.add(node)
 
-        # checking all neighbors
-        for neighbor in graph.get_neighbors(node):
-            # if neighbor not visited then
-            if neighbor not in distance:
-                # set distance from src
-                distance[neighbor] = distance[node] + 1
-                # setting current node as parent
-                parents[neighbor].append(node)
-                queue.append(neighbor)
-            elif distance[neighbor] == distance[node] + 1:
-                # found another shortest path to neighbor
-                parents[neighbor].append(node)
+            # checking all neighbors
+            for neighbor in graph.get_neighbors(node):
+                # Skip already visited nodes
+                if neighbor in visited: continue
+                
+                edges_explored += 1
+                
+                new_path = path + [neighbor]
+                queue.append((neighbor, new_path))
+                if neighbor == to:
+                    to_visited = True
+                    paths.append(new_path)
+        
+        distance += 1
+        
+        # Break early if we reach the end node
+        if to_visited:
+            break
 
     # if not reachable
-    if not distance:
-        return len(distance), None, []
-
-    # backtrack to build path all from to to src
-    def backtrack(curr, path):
-        if curr == src:
-            # add completed path to list when source is reached
-            paths.append([src] + path[::-1])
-            return
-        for p in parents[curr]:
-            backtrack(p, path + [curr])
-
-    # backtracking from destination node
-    backtrack(to, [])
-
-    return len(distance), distance[to], paths
-    
-
+    if not to_visited:
+        return edges_explored, None, []
+    return edges_explored, distance, paths
 
 # depth first search
 def dfs(graph: Graph, src, to):
@@ -127,6 +126,6 @@ def dfs(graph: Graph, src, to):
 
 
 # Testing Code, example using Dijkstra
-# graph = Graph("backend/data/paths.tsv")
-# print(dijkstra(graph, "florida", "formula_one"))
-# print(bfs(graph, "Florida", "Formula_One"))
+graph = Graph("./data/paths.tsv")
+print(dijkstra(graph, "dog", "cat"))
+print(bfs(graph, "dog", "cat"))
