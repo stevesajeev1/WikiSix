@@ -1,9 +1,28 @@
+#general-stats {
+  width: 100vw;
+  background-color:#1a173a40;
+  color: white;
+  text-align:center;
+  padding: 10px;
+}
+
+#general-stats h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+#general-stats p {
+  font-size: 18px;
+  margin: 0px;
+
+}
+
 #footer {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #4A6C6F;
+  background-color: #312e53;
   color: white;
   padding: 10px;
 }
