@@ -26,13 +26,13 @@ export default function Input({ start, setStart, end, setEnd, calculate }: Input
         <input 
           value={start} 
           onInput={handleStartInput}
-          placeholder={`from`}
+          placeholder="from"
         />
-        <span id="arrow">→</span>
+        <span id="arrow">&#x2192;</span>
         <input 
           value={end}
           onInput={handleEndInput} 
-          placeholder={`to`}
+          placeholder="to"
         />
       </div>
       <div id="input-button" onClick={calculate}>Go!</div>
