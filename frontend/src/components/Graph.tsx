@@ -11,6 +11,7 @@ export default function Graph({ result }: GraphProps) {
   const nodes: GraphNode[] = [];
   const edges: GraphEdge[] = [];
 
+  // ADDING EDGEs AND NODES
   result.paths.forEach((path) => {
     for (let i = 0; i < path.length; i++){
       if (!nodes.some((node) => node.id === path[i])) {
@@ -30,16 +31,29 @@ export default function Graph({ result }: GraphProps) {
     }
   })
 
+  // fullscreen function, on user clicking canvas
+  const fullscreenToggle = () => {
+    const graphContainer = document.getElementById("graph-container")!;
+    if (!document.fullscreenElement) {
+      graphContainer.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
   return (
     <div id="graph-container">
       <div id="canvas-container">
       <GraphCanvas
+          // create the canvas (graph attributes)
           nodes = {nodes}
           edges= {edges}
           layoutType="treeLr2d" 
           animated={true} 
           edgeArrowPosition="end" 
           draggable={true}
+          onCanvasClick = {fullscreenToggle}
+          
         />
       </div>
       <div id="stats">
@@ -72,6 +86,7 @@ export default function Graph({ result }: GraphProps) {
           </tbody>
         </table>
       </div>
+      <div id="fullscreen-txt">Click Canvas to Enter Fullscreen</div>
       <span id="graph-description">Found {result.paths.length} paths with {result.shortest_degree} degrees of separation!</span>
     </div>
   );
