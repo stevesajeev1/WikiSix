@@ -17,18 +17,27 @@ class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers.get('Content-Length', 0))
         if content_length == 0:
-            self.send_error(400, "Please supply a start and end node!")
+            self.send_response(400)
+            self.send_header("Content-type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"Please supply a start and end node!")
             return
 
         try:
             body = self.rfile.read(content_length)
             data = json.loads(body)
         except json.JSONDecodeError:
-            self.send_error(400, "Invalid JSON format!")
+            self.send_response(400)
+            self.send_header("Content-type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"Invalid JSON format!")
             return
         
         if 'start' not in data or not data['start'] or 'end' not in data or not data['end']:
-            self.send_error(400, "Please supply a start and end node!")
+            self.send_response(400)
+            self.send_header("Content-type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"Please supply a start and end node!")
             return
 
         # get nodes from request
@@ -37,10 +46,16 @@ class handler(BaseHTTPRequestHandler):
 
         # make sure start and end nodes in graph
         if not graph.hasNode(start):
-            self.send_error(400, f"{start} not in dataset!")
+            self.send_response(400)
+            self.send_header("Content-type", "text/plain")
+            self.end_headers()
+            self.wfile.write(f"{start} not in dataset!".encode('utf-8'))
             return
         if not graph.hasNode(end):
-            self.send_error(400, f"{end} not in dataset!")
+            self.send_response(400)
+            self.send_header("Content-type", "text/plain")
+            self.end_headers()
+            self.wfile.write(f"{end} not in dataset!".encode('utf-8'))
             return
 
         # Run the algorithms and record time taken where:
@@ -54,7 +69,11 @@ class handler(BaseHTTPRequestHandler):
 
         # Check if paths are equal
         if (dg_bfs != dg_djk) or (len(paths_bfs) != len(paths_djk)):
-                return "Error, paths returned not equal", 500
+                self.send_response(400)
+                self.send_header("Content-type", "text/plain")
+                self.end_headers()
+                self.wfile.write(b"Error, paths returned not equal")
+                return
 
         # finding user routes
         avg_user_path_len, avg_user_duration, shortest_user_path = get_user_route(start, end)
