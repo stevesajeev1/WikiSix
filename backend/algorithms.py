@@ -73,7 +73,7 @@ def dijkstra(graph: Graph, src, to):
     return visited, least_dist, paths
 
 
-# breadth first search
+# breadth first search - Victoria
 def bfs(graph: Graph, src, to):
     # to keep track of nodes visited
     visited = set()
@@ -123,9 +123,47 @@ def bfs(graph: Graph, src, to):
 
 # depth first search
 def dfs(graph: Graph, src, to):
-    pass
+    distance = {src: 0}
+    path = []
+    all_paths = []
+    ct = 0
+
+    # Finds the shortest distances using BFS algorithm
+    def bfs_find_shortest_distances(src):
+        queue = deque([src])
+
+        while queue:
+            node = queue.popleft()
+            for neighbor in graph.get_neighbors(node):
+                if neighbor not in distance or distance[neighbor] > distance[node] + 1:
+                    distance[neighbor] = distance[node] + 1
+                    queue.append(neighbor)
+
+    bfs_find_shortest_distances(src)
+    # tried dfs instead of bfs for calculating shortest distance, but its taking way too long as our data set is very large
+    # hence using bfs now for it
+
+    # DFS to collect all shortest paths
+    def dfs_recursive(current):
+        path.append(current)
+        if current == to:
+            all_paths.append(path[:]) 
+        else:
+            for neighbor in graph.get_neighbors(current):
+                if distance[neighbor] == distance[current] + 1:
+                    dfs_recursive(neighbor)
+        path.pop()
+
+    dfs_recursive(src)
+    return len(distance), distance[to], all_paths
+
 
 
 # Testing Code, example using Dijkstra
-# graph = Graph("backend/data/paths.tsv")
+graph = Graph("backend/data/paths.tsv")
 # print(dijkstra(graph, "florida", "formula_one"))
+print(bfs(graph, "florida", "formula_one"))
+print(dfs(graph, "florida", "formula_one"))
+
+
+
