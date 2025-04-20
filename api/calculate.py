@@ -5,10 +5,12 @@ from .algorithms import dijkstra, bfs
 from .user_route import get_user_route
 
 from http.server import BaseHTTPRequestHandler
+from os.path import dirname, abspath, join
+dir = dirname(abspath(__file__))
 
 # We will have a global variable storing the graph.
 # We do not want to create a new graph on each request.
-graph = Graph("./data/paths.tsv")
+graph = Graph(join(dir, 'data', 'paths.tsv'))
 
 # We will have a route that will call all algorithms
 class handler(BaseHTTPRequestHandler):

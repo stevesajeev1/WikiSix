@@ -3,11 +3,14 @@
 import csv
 from urllib.parse import unquote
 
+from os.path import dirname, abspath, join
+dir = dirname(abspath(__file__))
+
 # User paths stores an array of tuples (duration, user_path)
 user_paths = []
 
 # Read data
-with open('./data/user_paths.tsv', 'r') as file:
+with open(join(dir, 'data', 'user_paths.tsv'), 'r') as file:
     reader = csv.reader(file, delimiter='\t')
     
     for row in reader:
