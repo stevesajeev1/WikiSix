@@ -23,7 +23,7 @@ export default function App() {
       "end": end.trim()
     }
 
-    const response = await fetch('/calculate', {
+    const response = await fetch('/api/calculate', {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
