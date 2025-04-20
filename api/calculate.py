@@ -78,11 +78,11 @@ class handler(BaseHTTPRequestHandler):
             }
         }
 
-    # Return the times, edges explored (for each), and a single paths (list of lists)
-    self.send_response(200)
-    self.send_header('Content-Type', 'application/json')
-    self.end_headers()
-    self.wfile.write(json.dumps(result).encode('utf-8'))
+        # Return the times, edges explored (for each), and a single paths (list of lists)
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps(result).encode('utf-8'))
 
 
 # Function to time each algorithm
