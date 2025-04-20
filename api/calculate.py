@@ -1,8 +1,8 @@
 import time
 import json
-from graph import Graph
-from algorithms import dijkstra, bfs
-from user_route import get_user_route
+from .graph import Graph
+from .algorithms import dijkstra, bfs
+from .user_route import get_user_route
 
 from http.server import BaseHTTPRequestHandler
 
