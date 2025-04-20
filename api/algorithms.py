@@ -3,8 +3,8 @@
 
 from collections import defaultdict
 from collections import deque
-from graph import Graph
 import heapq
+from .graph import Graph
 
 # Should return:
 # - Number of edges explored
