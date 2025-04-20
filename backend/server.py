@@ -3,7 +3,7 @@ from flask_cors import CORS
 from graph import Graph
 import algorithms
 import time
-import user_route
+from user_route import get_user_route
 
 app = Flask(__name__)
 CORS(app)
@@ -23,8 +23,8 @@ def calculate():
     end = (request.json['end']).lower().replace(' ', '_')
 
     # make sure start and end nodes in graph
-    if not graph.hasNode(start): return "Start node not in graph", 400
-    if not graph.hasNode(end): return "End node not in graph", 400
+    if not graph.hasNode(start): return f"{start} not in dataset!", 400
+    if not graph.hasNode(end): return f"{end} not in dataset!", 400
 
     # Run the algorithms and record time taken where:
         # time_alg - time taken
@@ -33,29 +33,24 @@ def calculate():
         # paths_alg - paths returned
     
     time_djk, ee_djk, dg_djk, paths_djk = time_function(algorithms.dijkstra, start, end)
-    # time_dfs, ee_dfs, dg_dfs, paths_dfs = time_function(algorithms.dfs, start, end)
     time_bfs, ee_bfs, dg_bfs, paths_bfs  = time_function(algorithms.bfs, start, end)
     
     # Check if paths are equal
-    # if (dg_bfs != dg_dfs != dg_djk) or (len(paths_bfs) != len(paths_dfs) != len(paths_djk)):
-            # return "Error, paths returned not equal", 500
+    if (dg_bfs != dg_djk) or (len(paths_bfs) != len(paths_djk)):
+            return "Error, paths returned not equal", 500
     
     # finding user routes
-    avg_user_path_len, avg_user_duration, shortest_user_path = user_route.get_user_route(start, end)
+    avg_user_path_len, avg_user_duration, shortest_user_path = get_user_route(start, end)
 
     result = {
         "shortest_degree": int(dg_djk),
         "paths": paths_djk,
         "dijkstra": {
-            "time": round(time_djk,4),
+            "time": round(time_djk, 4),
             "edges_explored": ee_djk
         },
-        # "dfs": {
-        #     "time": round(time_dfs,4),
-        #     "edges_explored": ee_dfs
-        # },
         "bfs": {
-            "time": round(time_bfs,4),
+            "time": round(time_bfs, 4),
             "edges_explored": ee_bfs
         },
         "user": None if shortest_user_path is None else {

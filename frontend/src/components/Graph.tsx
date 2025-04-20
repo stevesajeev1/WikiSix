@@ -72,12 +72,6 @@ export default function Graph({ result }: GraphProps) {
               <td>{result.dijkstra.edges_explored}</td>
               <td>{result.dijkstra.time}</td>
             </tr>
-            {/* <tr>
-              <td>DFS</td>
-              <td>{result.dfs.edges_explored}</td>
-              <td>{result.dfs.time}</td>
-            </tr>
-            */}
             <tr>
               <td>BFS</td>
               <td>{result.bfs.edges_explored}</td>

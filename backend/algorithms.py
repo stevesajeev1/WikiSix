@@ -72,7 +72,7 @@ def dijkstra(graph: Graph, src, to):
     return edges_explored, least_dist, paths
 
 
-# breadth first search
+# BFS Algorithm - Victoria
 def bfs(graph: Graph, src, to):
     if to == src:
         return 0, 0, [[src]]
@@ -119,13 +119,3 @@ def bfs(graph: Graph, src, to):
     if not to_visited:
         return edges_explored, None, []
     return edges_explored, distance, paths
-
-# depth first search
-def dfs(graph: Graph, src, to):
-    pass
-
-
-# Testing Code, example using Dijkstra
-graph = Graph("./data/paths.tsv")
-print(dijkstra(graph, "dog", "cat"))
-print(bfs(graph, "dog", "cat"))

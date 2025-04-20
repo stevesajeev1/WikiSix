@@ -14,7 +14,6 @@ export type Result = {
   shortest_degree: number,
   paths: string[][],
   dijkstra: Algorithm,
-  dfs: Algorithm,
   bfs: Algorithm,
   user: User
 };
