@@ -2,7 +2,7 @@ import "../styles/Footer.css";
 
 export default function Footer() {
   return (
-    <div>
+    <div id="footer-container">
       <div id="general-stats">
         <h3>Did you know?</h3>
         <p>The longest path is between <b>Interbase</b> and <b>Timken 1111</b> with <i><b>9 degrees</b></i> of separation!</p>
